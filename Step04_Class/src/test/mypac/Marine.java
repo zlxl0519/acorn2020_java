@@ -1,4 +1,15 @@
 package test.mypac;
+/*
+ * 	접근 지정자
+ * 
+ * 	클래스, 필드, 메소드에 작성한다.
+ * 
+ * 1. public
+ * 	- 어디에서나 자유롭게 접근 가능
+ * 2. default ( 접근 지정자를 작성하지 않은 경우)
+ * 	- 동일한 package 내에서만 접근 가능
+ * 	-package 가 다르면 import 도 불가능하다.
+ */
 
 public class Marine {
 	//공격력을 저장하고 있는 static 필드
