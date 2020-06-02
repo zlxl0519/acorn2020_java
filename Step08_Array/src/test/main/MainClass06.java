@@ -11,13 +11,14 @@ public class MainClass06 {
 		 * 	모두다 입력 받은후 for 문을 이용해서 배열에 저장된
 		 * 	모든 문자열을 콘솔창에 순서대로 출력하는 코드를 작성해 보세요.
 		 */
-		Scanner[] scan=new Scanner[5];
+		String[] scan=new String[5];
+		
 		
 		for(int i=0; i<scan.length;i++) {
-			
-			scan[i]=new Scanner(System.in);
+			scan[i]=new String();
+			Scanner scan2=new Scanner(System.in);
 			System.out.println("문자열을 입력해주세요 : ");
-			String str=scan[i].next();
+			String str=scan2.next();
 			System.out.println(str);
 		}
 		/*
@@ -26,11 +27,12 @@ public class MainClass06 {
 		 * 		모두다 저장이 되면 for 문을 이용해서 배열에 저장된 모든 로또 번호를 
 		 * 		콘솔창에 순서대로 출력하는 코드를 작성해 보세요.
 		 */
-		Random[] ran=new Random[6];
+		int[] in=new int[6];
 		
-		for(int i=0; i<ran.length; i++) {
-			ran[i]=new Random();
-			int lottoNum=ran[i].nextInt(45)+1;
+		for(int i=0; i<in.length; i++) {
+			
+			Random ran=new Random();
+			int lottoNum=ran.nextInt(45)+1;
 			System.out.println(lottoNum);
 		}
 	}
