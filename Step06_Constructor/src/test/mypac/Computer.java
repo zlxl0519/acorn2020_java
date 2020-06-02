@@ -3,6 +3,10 @@ package test.mypac;
 public class Computer {
 	//필드
 	public Cpu cpu;
+	//기본 생성자(인자로 아무것도 전달 받지 않는 생성자)
+	public Computer() {
+		System.out.println("기본 생성자가 호출되었습니다.");
+	}
 	//필드에서 메소드에서 필요로하는 것들을 담고있다.
 	// 필드에서 필요로 하는 값들은 생성자의 인자로 전달하는 경우가 많다.
 	//생성자
