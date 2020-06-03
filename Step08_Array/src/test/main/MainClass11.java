@@ -3,6 +3,7 @@
 package test.main;
 
 import java.util.Random;
+
 import java.util.Scanner;
 
 public class MainClass11 {
