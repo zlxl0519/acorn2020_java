@@ -17,7 +17,7 @@ public class MainClass11 {
 				break; //while  문 탈출
 			}
 			//이전 예제에서 작업한 내용을 static 메소드에 이동 시키고 해당 메소드 호출하기 
-			MainClass12.doGame();
+			MainClass11.doGame();
 		}
 		System.out.println("main 메소드가 종료 됩니다.");
 	}
