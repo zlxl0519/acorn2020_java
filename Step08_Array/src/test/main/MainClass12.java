@@ -2,6 +2,7 @@
 package test.main;
 
 import java.util.Random;
+
 import java.util.Scanner;
 
 public class MainClass12 {
@@ -47,7 +48,7 @@ public class MainClass12 {
 			}
 			//.print()메소드를 이용해서 개행 기호를 출력하지 않는다.
 			//\t 는 tap 되는 기능
-			System.out.print("|\t"+items[nums[i]]+"\t|");// 한줄로 나오게 한다.
+			System.out.print("|\t"+items[nums[i]]+"\t|");// print 한줄로 나오게 한다.
 		}
 		
 		//개행 2번 하기, 줄바꾸기
