@@ -19,7 +19,10 @@ public class MainClass01 {
 		//poly type(다형성) , 이걸쓰면 프로그래밍이 유연해진다.
 		Phone p4=new HandPhone();//HandPhone의 부모타입 으로 정의하면 Phone과 Object 기능만 쓸수있다.
 		Object p5= new HandPhone();
+		// 부모타입을 자식타입으로 변경해서 자식타입안에 있는 메소드를 사용할 수 있다.
+		HandPhone p8=(HandPhone)p5; 
 		
+
 		//이미 만들어진 객체의 참조값을 다른 type 으로 받아보기
 		Phone p6=p3;
 		Object p7=p3;
