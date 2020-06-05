@@ -15,6 +15,8 @@ public class MainClass05 {
 		//myName 은 non static 필드임으로 참조값으로 접근가능
 		System.out.println(new MainClass05().myName);
 		
+		System.out.println(new MainClass05().yourName);
+		
 		//yourName 이라는 필드는 static 이므로 클래스명. 으로 접근 가능
 		System.out.println(MainClass05.yourName);
 		
