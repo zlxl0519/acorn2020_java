@@ -11,7 +11,7 @@ public class MainClass02 {
 		nums.add(30);
 		//배열에 크기 얻어오기
 		int size=nums.size();
-		//특정 인덱스 아이템 얻어오기 (참조)ㅍㅊ 
+		//특정 인덱스 아이템 얻어오기 (참조)
 		int num1=nums.get(0);
 		Integer num2= nums.get(1);
 		int num3=nums.get(2);
