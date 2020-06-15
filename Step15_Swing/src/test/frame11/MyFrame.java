@@ -19,50 +19,58 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-public class MyFrame extends JFrame implements ActionListener, KeyListener{
+public class MyFrame extends JFrame implements ActionListener{
 	
 	public static String COMMEND_PLUS="plus";
 	public static String COMMEND_minus="minus";
 	public static String COMMEND_multi="multi";
 	public static String COMMEND_divi="divi";
 	
-	JTextField inputNum1;
-	JTextField inputNum2;
-	JLabel resultNum;
+	JTextField tf_num1, tf_num2;
+	JLabel label_result;
 	//default 생성자
 	public MyFrame() {
+		//프레임의 레이아웃 법칙 설정하기
 		setLayout(new BorderLayout());
-		//입력할곳
-		inputNum1=new JTextField(10);
-		inputNum2=new JTextField(10);
-		//연산자 버튼 // 클릭했을때 이벤트
-		JButton plus=new JButton("+");
-		plus.addActionListener(this);
-		plus.setActionCommand(COMMEND_PLUS);
-		JButton minus=new JButton("-");
-		minus.addActionListener(this);
-		minus.setActionCommand(COMMEND_minus);
-		JButton multi=new JButton("*");
-		multi.addActionListener(this);
-		multi.setActionCommand(COMMEND_multi);
-		JButton divi=new JButton("/");
-		divi.addActionListener(this);
-		divi.setActionCommand(COMMEND_divi);
-		//값나오는곳
-		JLabel result = new JLabel("=");
-		resultNum=new JLabel();
-		//판넬 추가
-		JPanel panel=new JPanel();
-		panel.add(inputNum1);
-		panel.add(plus);
-		panel.add(minus);
-		panel.add(multi);
-		panel.add(divi);
-		panel.add(inputNum2);
-		panel.add(result);
-		panel.add(resultNum);
 		
-		add(panel, BorderLayout.NORTH);
+		//JPannel
+		JPanel  topPanel=new JPanel();
+		topPanel.setBackground(Color.YELLOW);
+		//Panel 을 북쪽에 배치하기
+		add(topPanel, BorderLayout.NORTH);
+		
+		//JTextField 객체를 만들어서 JPanel 에 추가하기
+		tf_num1=new JTextField(10);
+		topPanel.add(tf_num1);
+		//기능 버튼 객체를 만들어서 JPanel 에 추가하기
+		JButton plusBtn=new JButton("+");
+		JButton minusBtn=new JButton("-");
+		JButton multiBtn=new JButton("*");
+		JButton divideBtn=new JButton("/");
+		topPanel.add(plusBtn);
+		topPanel.add(minusBtn);
+		topPanel.add(multiBtn);
+		topPanel.add(divideBtn);
+		//두번째 JTextField 만들어서 페널에 추가 하기
+		tf_num2=new JTextField(10);
+		topPanel.add(tf_num2);
+		//JLabel
+		JLabel label1=new JLabel("=");
+		label_result=new JLabel("0");
+		//페널에 레이블 추가하기
+		topPanel.add(label1);
+		topPanel.add(label_result);
+		
+		//버튼에 리스너 등록하기
+		plusBtn.addActionListener(this);
+		minusBtn.addActionListener(this);
+		multiBtn.addActionListener(this);
+		divideBtn.addActionListener(this);
+		//버튼에 액션 command 지정하기
+		plusBtn.setActionCommand("plus");
+		minusBtn.setActionCommand("minus");
+		multiBtn.setActionCommand("multi");
+		divideBtn.setActionCommand("divide");
 		
 	}
 	
@@ -70,7 +78,7 @@ public class MyFrame extends JFrame implements ActionListener, KeyListener{
 		//MyFrame 클래스를 이용해서 객체 생성하고 참조값을 지역변수 frame 에 담기
 		MyFrame frame=new MyFrame();
 		//프레임 제목 설정
-		frame.setTitle("나의 프레임");
+		frame.setTitle("계산기");
 		//프레임을 닫으면 자동으로 프로세스가 종료 되도록 한다.
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 500, 500);
@@ -84,52 +92,36 @@ public class MyFrame extends JFrame implements ActionListener, KeyListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			Object command=e.getActionCommand();
-			//계산위해 숫자로 바꾸기
-			double num1=Double.parseDouble(inputNum1.getText());
-			double num2=Double.parseDouble(inputNum2.getText());
-			
-			if(command==COMMEND_PLUS) {
-				double plusresult=num1+num2;
-				//불러오기 위해 String 으로 바꾸기
-				resultNum.setText(plusresult+"");
-				
-			}else if(command==COMMEND_minus) {
-				double minusresult=num1-num2;
-				resultNum.setText(minusresult+"");
-			}else if(command==COMMEND_multi) {
-				double multiresult=num1*num2;
-				resultNum.setText(multiresult+"");
-			}else if(command==COMMEND_divi) {
-				double diviresult=num1/num2;
-				resultNum.setText(diviresult+"");
+			//JTextField 에 입력한 문자열을 읽어와서 숫자(실수)로 바꿔준다.
+			double num1=Double.parseDouble(tf_num1.getText());
+			double num2=Double.parseDouble(tf_num2.getText());
+			//연산의 결과값을 담을 지역 변수
+			double result=0;
+			//눌러진 버튼의 command 읽어오기
+			String command=e.getActionCommand();
+			if(command.equals("plus")) {
+				result=num1+num2;
+			}else if(command.equals("minus")) {
+				result=num1-num2;
+			}else if(command.equals("multi")) {
+				result=num1*num2;
+			}else if(command.equals("divide")) {
+				result=num1/num2;
 			}
-		}catch(NumberFormatException nfe) {
-			System.out.println("숫자형식에 맞게 입력 하세요");
+			//결과 값을 JLabel 에 출력하기
+			label_result.setText(Double.toString(result));
+			
+		}catch(Exception exe) {
+			
+			
+			JOptionPane.showMessageDialog(this, "숫자 형식으로 입력해 주세요");
+		
 		}
-		
-		
 	}
-	
-	
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		
-		
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
-		
-	}
-
 	
 }
+		
+	
+
+	
+	
