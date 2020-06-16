@@ -1,6 +1,7 @@
 package InputOutput_Practice;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -16,16 +17,27 @@ public class Quiz2_01 {
 		System.out.println("저장할 문자열 입력 : ");
 		String inputText=scan.nextLine();
 		File f=new File("c:/acorn2020/myFolder/quiz2.txt");
-		if(!f.exists()) {
-			System.out.println("파일이 존재하지 않습니다.");
-			return;
-		}else {
-			try {
+		FileWriter fw=null;
+		try {
+			if(!f.exists()) {
 				f.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
+			fw=new FileWriter(f,true);
+			fw.write(inputText);
+			fw.write("\r\n");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			if(fw!=null)
+				try {
+					fw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		}
+		
+		
 		
 	}
 }
