@@ -27,7 +27,7 @@ public class MainClass17 {
 				if(readedByte ==-1) {//더이상 읽을 byte 가 없다면
 					break;//반복문 탈출
 				}
-				//byte[] 에 있는 데이터를 읽은 만큼 출력하기 // 0번방에서 읽은만큼??
+				//byte[] 에 있는 데이터를 읽은 만큼 출력하기 // 0번방에서 읽은만큼
 				fos.write(buffer, 0, readedByte);
 				
 			}
