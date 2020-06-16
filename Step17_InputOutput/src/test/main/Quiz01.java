@@ -26,7 +26,7 @@ public class Quiz01 {
 			File file1=new File("c:/acorn2020/myFolder/quiz.txt");
 			try {
 				boolean isExist=file1.exists();
-				if(isExist) {
+				if(!isExist) {
 					file1.createNewFile();
 				}
 				//new FileWriter(File 객체, append 모드 여부)
