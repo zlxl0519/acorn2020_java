@@ -107,8 +107,10 @@ public class ServerMain {//통신관련 동작만 있다.
 					 */
 					String msg=br.readLine(); // 메세지를 전송할때까지 기다린다.
 					System.out.println("메세지:"+msg);
+					
 					//클라이언트에게 동일한 메세지를 보내는 메소드를 호출한다.
 					sendMessage(msg);
+					
 					if(msg==null) {// 클라이언트의 접속이 끈겼기 때문에
 						break;//반복문(while)을 빠져 나오도록 한다.
 					}

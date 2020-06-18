@@ -29,9 +29,7 @@ import org.json.JSONObject;
  * 	
  * 	1. 일반 대화 메세지 	
  * 		{"name" : "김구라", "msg" : "안녕하세요"} - JSONObject neme 이라는 키값에 "김구라" 가 있는것.
- * 
- * 
- * 	2. 누군가 입장 했다는 메세지	
+ * 	2.	누군가 입장 했다는 메세지	
  * 		{"enter" : "김구라"}
  * 	3. 누군가 퇴장 했다는 메세지	
  * 		{"out " : "원숭이"}
@@ -59,7 +57,7 @@ public class ClientMain extends JFrame implements ActionListener, KeyListener{
 		try {
 			//접속이 성공되면 Socket 객체의 참조값이 반환된다.
 			//반환되는 객체의 참조값을 필드에 저장해 놓는다.
-			socket=new Socket("192.168.0.30", 5000);//필드에 저장된다.
+			socket=new Socket("192.168.0.9", 5000);//필드에 저장된다.
 			//문자열을 서버에 전송(출력Output) 하기// 접속한 서버에 출력할객체
 			//서버에 문자열을 출력할
 			//BufferedWriter 객체의 참조값을 얻어내서 필드에 저장해 놓는다.

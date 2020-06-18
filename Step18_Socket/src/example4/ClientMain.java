@@ -35,7 +35,7 @@ public class ClientMain extends JFrame implements ActionListener, KeyListener{
 		try {
 			//접속이 성공되면 Socket 객체의 참조값이 반환된다.
 			//반환되는 객체의 참조값을 필드에 저장해 놓는다.
-			socket=new Socket("192.168.0.30", 5000);//필드에 저장된다.
+			socket=new Socket("192.168.0.9", 5000);//필드에 저장된다.
 			//문자열을 서버에 전송(출력Output) 하기// 접속한 서버에 출력할객체
 			//서버에 문자열을 출력할
 			//BufferedWriter 객체의 참조값을 얻어내서 필드에 저장해 놓는다.
@@ -72,12 +72,14 @@ public class ClientMain extends JFrame implements ActionListener, KeyListener{
 		//JTextArea 의 참조값을 필드에 저장하기
 		area=new JTextArea();
 		//문자열 출력 전용으로 사용하기 위해 편집 불가능하도록 설정
-		area.setEditable(false);
+		area.setEditable(false);// 편집 불가능
 		//배경색
 		area.setBackground(Color.PINK);
 		//스크롤 가능하도록
 		JScrollPane scroll= new JScrollPane(area, 
+				//수직방향의 스크롤 항상 보이게
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+				//수평방향의 스크롤 보이지 않게 설정
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		//프레임의 가운데에 배치하기
@@ -133,12 +135,13 @@ public class ClientMain extends JFrame implements ActionListener, KeyListener{
 					String msg=br.readLine();
 					area.append(msg);
 					area.append("\r\n");// 개행 기호도 출력하기
-					//최근 추가된 글 내용이 보일수 있도록
+					//최근 추가된 글 내용이 보일수 있도록 
 					int docLength=area.getDocument().getLength();
-					area.setCaretPosition(docLength);
+					area.setCaretPosition(docLength);//맨 아래로 커서를 옮긴다.
 					if(msg==null) {
 						break;
 					}
+					
 				}
 			}catch(Exception e) {
 				
