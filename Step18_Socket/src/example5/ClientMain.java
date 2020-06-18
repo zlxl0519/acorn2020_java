@@ -1,4 +1,4 @@
-package example4;
+package example5;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,11 +17,29 @@ import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.json.JSONObject;
+/*
+ * 	메세지의 종류
+ * 	
+ * 	1. 일반 대화 메세지 	
+ * 		{"name" : "김구라", "msg" : "안녕하세요"} - JSONObject neme 이라는 키값에 "김구라" 가 있는것.
+ * 
+ * 
+ * 	2. 누군가 입장 했다는 메세지	
+ * 		{"enter" : "김구라"}
+ * 	3. 누군가 퇴장 했다는 메세지	
+ * 		{"out " : "원숭이"}
+ * 	4. 참여자 목록 메세지
+ * 		{"members":["김구라", "해골", "원숭이"]}   // [] -JSONArray
+ * 		
+ * 
+ */
 public class ClientMain extends JFrame implements ActionListener, KeyListener{
 	//필드
 	JTextField tf_msg;
@@ -29,8 +47,14 @@ public class ClientMain extends JFrame implements ActionListener, KeyListener{
 	Socket socket; // 이 객체를 다른 메소드에서도 사용하도록 //선언만 하면 null이 들어있다.
 	BufferedWriter bw;
 	JTextArea area;
+	//대화명
+	String chatName;
 	//생성자
 	public ClientMain() {
+		//대화명을 입력 받아서 필드에 저장한다.
+		chatName=JOptionPane.showInputDialog(this, "대화명을 입력하세요");
+		
+		setTitle("대화명:"+chatName);
 		//서버에 소켓 접속을 한다.
 		try {
 			//접속이 성공되면 Socket 객체의 참조값이 반환된다.
@@ -43,6 +67,19 @@ public class ClientMain extends JFrame implements ActionListener, KeyListener{
 			//new 해서 쓰고 버리고...이런식
 			OutputStreamWriter osw=new OutputStreamWriter(os);//객체를 일회용으로 사용중
 			bw=new BufferedWriter(osw);
+			//내가 입장한다고 서버에 메세지를 보낸다.
+			//"{"enter" : "김구라"}" {} - jsonobject , [] -jsonarray
+			//String msg="{\"enter\":\""+chatName+"\"}";//" 밖에 있는 " 인식하지 말라고 \ 사용
+			
+			JSONObject jsonObj=new JSONObject();
+			jsonObj.put("enter", chatName);// 서버에서 chatName 을 빼내기 위해서는 서버에서 new JSONObject(chatName);
+			String msg=jsonObj.toString();
+			//BufferedWriter 객체를 이용해서 보내기
+			bw.write(msg);
+			bw.newLine();
+			
+			
+			
 			//서버로 부터 메세지를 받을 스레드도 시작을 시킨다.
 			new ClientThread().start(); // 다른 스레드로 동작해서 동작이 잡혀있지 않는다.
 		}catch(Exception e){
@@ -91,7 +128,6 @@ public class ClientMain extends JFrame implements ActionListener, KeyListener{
 	public static void main(String[] args) {
 		//프레임 객체 생성
 		ClientMain f= new ClientMain();
-		f.setTitle("쳇팅창");
 		f.setBounds(100, 100, 500, 500);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
@@ -108,7 +144,7 @@ public class ClientMain extends JFrame implements ActionListener, KeyListener{
 		String msg=tf_msg.getText();//메소드가 리턴해준 객체
 		try {
 			//필드에 있는 BufferedWriter 객체의 참조값을 이용해서 서버에 문자열 출력하기
-			bw.write(msg);
+			bw.write(chatName+" : "+msg);
 			bw.newLine();//개행기호도 출력 (서버에서 줄단위로 읽어낼 예정)
 			bw.flush();
 		}catch(Exception ie) {
