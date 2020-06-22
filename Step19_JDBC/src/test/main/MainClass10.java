@@ -22,6 +22,7 @@ public class MainClass10 {
 		MemberDto dto2= new MemberDto(1, "김구라", "독산동");
 		dao2.update(dto2);
 		
+	
 		
 	}
 }
