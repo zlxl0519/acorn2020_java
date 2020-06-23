@@ -8,7 +8,7 @@ public class DBConnect {
 	private Connection conn;
 	
 	//생성자에서 Connection 객체를 얻어와서 필드에 저장한다.
-	public DBConnect() {
+	public DBConnect() {// new 하는 시점에 실행된다.
 		try {
 			//오라클 드라이버 로딩
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -23,7 +23,7 @@ public class DBConnect {
 		}
 	}
 	//필드에 저장된 Connection 객체의 참조값을 리턴해주는 메소드 // Connection conn=new DBConnect().getConn();
-	public Connection getConn() {
+	public Connection getConn() {// Connection 객체의 참조값이 필요할때 사용
 		return conn;
 	}
 }

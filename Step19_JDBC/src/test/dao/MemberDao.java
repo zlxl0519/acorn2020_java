@@ -25,6 +25,8 @@ import test.util.DBConnect;
  *   여러 객체를 만드는 것은 안좋음
  *   connection 객체는 수가 한정되있다.
  *   
+ *   dao를 설계하기 전에 dto를 먼저 설계해야한다.
+ *   
  */
 public class MemberDao {
 	//자신의 참조값을 저장할 private 필드
@@ -128,16 +130,17 @@ public class MemberDao {
 		
 	}
 	//회원 한명의 정보를 DB 에서 삭제하는 메소드
-	public void delete(int num) {
+	public boolean delete(int num) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
+		int flag=0;
 		try {
 			conn=new DBConnect().getConn();
 			String sql="delete from member"
 					+ " where num=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
-			pstmt.executeUpdate();
+			flag=pstmt.executeUpdate();
 			System.out.println("회원 정보를 삭제 했습니다.");
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -149,11 +152,17 @@ public class MemberDao {
 				e.printStackTrace();
 			}
 		}
+		if(flag>0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
-	//회원 정보를 DB 에 저장하는 메소드 
-	public void insert(MemberDto dto) {
+	//회원 정보를 DB 에 저장하는 메소드 (작업의 성공여부가 boolean 으로 리턴된다.)
+	public boolean insert(MemberDto dto) {// dto 에는 name, addr 넣어서 insert 하는것
 		Connection conn=null;
 		PreparedStatement pstmt=null;
+		int flag=0;
 		try {
 			conn=new DBConnect().getConn();
 			String sql="insert into member"
@@ -162,7 +171,8 @@ public class MemberDao {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getName());
 			pstmt.setString(2, dto.getAddr());
-			pstmt.executeUpdate();
+			//sql 문을 수행하고 변환된 row 의 갯수를 리턴받는다.(1)
+			flag=pstmt.executeUpdate();// 성공여부를 알수있다.//수정된 로우의 갯수를 리턴해준다.
 			System.out.println("회원 정보를 추가 했습니다.");
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -174,11 +184,17 @@ public class MemberDao {
 				e.printStackTrace();
 			}
 		}
+		if(flag>0) {
+			return true; //작업 성공이라는 의미에서 true 를 리턴한다.
+		}else {
+			return false;//작업 실패라는 의미에서 false 를 리턴한다.
+		}
 	}
 	//회원 정보를 DB 에서 수정하는 메소드
-	public void update(MemberDto dto) {
+	public boolean update(MemberDto dto) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
+		int flag=0;
 		try {
 			conn=new DBConnect().getConn();
 			String sql="update member"
@@ -188,7 +204,7 @@ public class MemberDao {
 			pstmt.setString(1, dto.getName());
 			pstmt.setString(2, dto.getAddr());
 			pstmt.setInt(3, dto.getNum());
-			pstmt.executeUpdate();
+			flag=pstmt.executeUpdate();
 			System.out.println("회원정보가 수정되었습니다.");
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -199,6 +215,11 @@ public class MemberDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
+		if(flag>0) {
+			return true;
+		}else {
+			return false;
 		}
 	}
 }
