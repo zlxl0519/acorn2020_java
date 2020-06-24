@@ -34,10 +34,16 @@ public class Member2Frame extends JFrame implements ActionListener, KeyListener{
 		JLabel label2=new JLabel("주소");
 		inputaddr=new JTextField(10);
 		
+		//JTextfield 에 KeyListener 등록
+		inputName.addKeyListener(this);
+		inputaddr.addKeyListener(this);
+		
+		//save 버튼
 		JButton saveBtn=new JButton("저장");
 		saveBtn.setActionCommand("save");
 		saveBtn.addActionListener(this);
 		
+		//delete 버튼
 		JButton deleteBtn=new JButton("삭제");
 		deleteBtn.setActionCommand("delete");
 		deleteBtn.addActionListener(this);
@@ -52,6 +58,7 @@ public class Member2Frame extends JFrame implements ActionListener, KeyListener{
 		
 		add(panel, BorderLayout.NORTH);
 		
+		//JTable
 		table=new JTable();
 		String[] columnNames= {"번호", "이름", "주소"};
 		model=new DefaultTableModel(columnNames, 0);
@@ -60,7 +67,7 @@ public class Member2Frame extends JFrame implements ActionListener, KeyListener{
 		add(scroll, BorderLayout.CENTER);
 		displayMember();
 	}
-	//리스트가 보이게 하는 메소드
+	//회원목록이  보이게 하는 메소드
 	public void displayMember() {
 		model.setRowCount(0);
 		Member2Dao dao=Member2Dao.getInstance();
@@ -78,6 +85,8 @@ public class Member2Frame extends JFrame implements ActionListener, KeyListener{
 		f.setBounds(100, 100, 800, 500);
 		f.setVisible(true);
 	}
+	
+	//회원정보를 저장하는 메소드
 	public void save() {
 		String name=inputName.getText();
 		String addr=inputaddr.getText();
@@ -99,10 +108,12 @@ public class Member2Frame extends JFrame implements ActionListener, KeyListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command=e.getActionCommand();
+		//저장 버튼을 눌렀을때 동작
 		if(command.equals("save")) {
 			save();
 		}//save 버튼 종료
 		
+		//삭제 버튼을 눌렀을때 동작
 		if(command.equals("delete")) {
 			//1.선택된 로우 인덱스를 읽어온다.
 			int selectedrow=table.getSelectedRow();
