@@ -171,8 +171,10 @@ public class MemoFrame extends JFrame implements ActionListener, KeyListener, Pr
 		if(e2.getPropertyName().equals("tableCellEditor")) {
 			if(isEditing) {
 				int selectedrow=table.getSelectedRow();
+				int updateNum=(int)model.getValueAt(selectedrow, 0);
 				String updateContent=(String)model.getValueAt(selectedrow, 1);
 				MemoDto dto=new MemoDto();
+				dto.setNum(updateNum);
 				dto.setContent(updateContent);
 				MemoDao dao=MemoDao.getInstance();
 				dao.update(dto);
