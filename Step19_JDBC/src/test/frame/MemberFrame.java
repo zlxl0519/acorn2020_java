@@ -176,10 +176,12 @@ public class MemberFrame extends JFrame implements ActionListener, PropertyChang
 				//변화된 값을 읽어와서 DB 에 반영한다.
 				//수정된 칼럼에 있는 row 전체의 값을 읽어온다.
 				int selectedIndex=table.getSelectedRow();
+				int num=(int)model.getValueAt(selectedIndex, 0);
 				String name=(String)model.getValueAt(selectedIndex, 1);
 				String addr=(String)model.getValueAt(selectedIndex, 2);
 				//수정할 회원의 정보를 MemberDto 객체에 담고
 				MemberDto dto=new MemberDto();
+				dto.setNum(num);
 				dto.setName(name);
 				dto.setAddr(addr);
 				//DB에 저장하기
